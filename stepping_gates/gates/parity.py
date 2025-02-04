@@ -14,7 +14,6 @@ class Parity(Gate):
         return jnp.array([0]*self.n_input)
 
     def function(self, obs):
-
         return (jnp.sum(obs) % 2)
 
 

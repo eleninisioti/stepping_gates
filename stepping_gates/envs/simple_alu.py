@@ -22,6 +22,8 @@ class SimpleALU(Circuit):
         self.max_reward = 0.0
         self.reward_for_solved = 0.0
 
+        self.curriculum = curriculum
+
 
         gates = [
             Multiplexer(n_input_circuit=self.n_input, n_output_circuit=self.n_output, n_control_bits=self.n_input_control),
@@ -91,12 +93,15 @@ class SimpleALU(Circuit):
 
     def reset(self, key, env_params=jnp.array([0])):
 
-        final_task = jnp.ravel(env_params).astype(jnp.int32)[0].astype(jnp.int32)
+        if self.curriculum == False:
+            final_task = self.current_task
+        else:
+
+            final_task = jnp.ravel(env_params).astype(jnp.int32)[0].astype(jnp.int32)
 
         if self.episode_type=="one_step":
             current_episode_length = 1
             current_task, obs = self.sample_multi_discrete(key, final_task)
-
 
         else:
             current_episode_length = self.episode_lengths[0]  # we start with
@@ -118,7 +123,7 @@ class SimpleALU(Circuit):
 
         n_inactive_inputs = jax.lax.switch(current_task,self.steps_n_inactive_inputs)
         inactive = jnp.arange(self.n_input) < (n_inactive_inputs)
-        obs = jnp.where( inactive, -1, obs)
+        obs = jnp.where( inactive, 0, obs)
         control_bits = self.int_to_binary_array(current_task)
         obs = jnp.concatenate([control_bits, obs])
         return State(obs=obs, done=False, reward=0.0, info=info, metrics={"reward": 0.0})
@@ -140,6 +145,7 @@ class SimpleALU(Circuit):
     def step(self, state, action):
         obs = state.obs
         action = jnp.where(jnp.greater(action,0.0), 1, 0)
+
 
 
         label = jax.lax.switch(state.info["current_task"],  self.steps_function, obs[self.n_input_control:])
