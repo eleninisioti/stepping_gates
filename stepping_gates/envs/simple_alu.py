@@ -122,10 +122,14 @@ class SimpleALU(Circuit):
 
 
         n_inactive_inputs = jax.lax.switch(current_task,self.steps_n_inactive_inputs)
-        inactive = jnp.arange(self.n_input) < (n_inactive_inputs)
-        obs = jnp.where( inactive, 0, obs)
+        n_active_inputs = self.n_input-n_inactive_inputs
+        #inactive = jnp.arange(self.n_input) < (n_inactive_inputs)
+        #obs = jnp.where( inactive, 0, obs)
+        obs = jnp.where(jnp.arange(self.n_input) >= (self.n_input- n_active_inputs), obs, 0)
+
         control_bits = self.int_to_binary_array(current_task)
         obs = jnp.concatenate([control_bits, obs])
+
         return State(obs=obs, done=False, reward=0.0, info=info, metrics={"reward": 0.0})
 
     def increment(self, binary_input):
