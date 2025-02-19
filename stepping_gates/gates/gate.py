@@ -17,7 +17,7 @@ class Gate:
 
     def set_inactive_input(self, n_input_circuit):
         self.n_inactive_input = n_input_circuit - self.n_input
-        self.inactive_input = jnp.array([2]*self.n_inactive_input, dtype=jnp.int32) # we need to set the bits that the gate is not using
+        self.inactive_input = jnp.array([0]*self.n_inactive_input, dtype=jnp.int32) # we need to set the bits that the gate is not using
 
     def reset(self, key):
         pass
