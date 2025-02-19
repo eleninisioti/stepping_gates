@@ -51,7 +51,7 @@ class SimpleALU(Circuit):
             self.task_params = jnp.arange(len(gates))
         else:
             self.task_params = jnp.array([len(gates)-1])
-        self.current_task = self.task_params[0]
+        self.current_task = int(self.task_params[0])
 
         self.num_tasks = len(self.task_params)
         self.steps_function = [el.function for el in gates]
