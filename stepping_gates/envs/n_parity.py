@@ -23,7 +23,7 @@ class NParity(Circuit):
 
     """
 
-    def __init__(self, n_input=6, episode_type="one_step", curriculum=False, reward_for_solved="perfect"):
+    def __init__(self, n_input=6, episode_type="one-step", curriculum=False, reward_for_solved="perfect"):
 
         super().__init__()
 
