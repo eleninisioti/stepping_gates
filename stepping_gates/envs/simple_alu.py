@@ -9,7 +9,7 @@ import itertools
 
 class SimpleALU(Circuit):
 
-    def __init__(self,  episode_type="one_step", curriculum=False, reward_for_solved=None):
+    def __init__(self,  episode_type="one-step", curriculum=False, reward_for_solved=None):
         super().__init__()
 
         self.n_input = 4
@@ -38,7 +38,7 @@ class SimpleALU(Circuit):
                  Decr(n_input_circuit=self.n_input, n_output_circuit=self.n_output, n_control_bits=self.n_input_control),
                  Shiftleft(n_input_circuit=self.n_input, n_output_circuit=self.n_output, n_control_bits=self.n_input_control),
                  ]
-        if episode_type == "one_step":
+        if episode_type == "one-step":
             self.episode_length = 1
             self.episode_lengths = jnp.array([1 for el in range(len(gates))])
         else:

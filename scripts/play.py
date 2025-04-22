@@ -34,9 +34,11 @@ def play_stepping_gates(task, curriculum, episode_type):
 
 
 if __name__ == "__main__":
+    play_stepping_gates(task="simple_alu", curriculum=True, episode_type="one_step")
+
     #play_stepping_gates(task="n_parity", curriculum=False, episode_type="all_steps")
 
-    play_stepping_gates(task="n_parity", curriculum=True, episode_type="all_steps")
+    #play_stepping_gates(task="n_parity", curriculum=True, episode_type="all_steps")
 
     #play_stepping_gates(task="n_parity_only_n", curriculum=False, episode_type="all_steps")
     #play_stepping_gates(task="n_parity_only_n", curriculum=True, episode_type="all_steps")
