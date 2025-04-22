@@ -99,7 +99,7 @@ class SimpleALU(Circuit):
 
             final_task = jnp.ravel(env_params).astype(jnp.int32)[0].astype(jnp.int32)
 
-        if self.episode_type=="one_step":
+        if self.episode_type=="one-step":
             current_episode_length = 1
             current_task, obs = self.sample_multi_discrete(key, final_task)
 

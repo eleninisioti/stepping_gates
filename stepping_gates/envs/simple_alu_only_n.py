@@ -98,7 +98,7 @@ class SimpleALU(Circuit):
                 "current_task": current_function,
                 "episode_length": episode_length
                 }
-        if self.episode_type == "one_step":
+        if self.episode_type == "one-step":
             obs = self.sample_multi_discrete(key)
             obs = obs[self.n_input_control:]
         else:

@@ -1,5 +1,7 @@
 import sys
 sys.path.append('.')
+import envs
+
 import jax.random
 import jax.numpy as jnp
 from stepping_gates import envs
